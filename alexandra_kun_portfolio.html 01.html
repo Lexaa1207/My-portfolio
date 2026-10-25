@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexandra Kun | Executive Portfolio - Import & Export Management & Heavy Machinery Specialist</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        agri: {
+                            green: '#2D5A27',
+                            darkgreen: '#1E3F1A',
+                            lightgreen: '#E8F2E6',
+                            brown: '#8C6239',
+                            amber: '#D97706',
+                            slate: '#4A5568',
+                            lightbg: '#F8FAF6',
+                            darkbg: '#0F172A',
+                            carddark: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D5A27;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8C6239;
+        }
+
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .img-hover-zoom {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:hover .img-hover-zoom {
+            transform: scale(1.06);
+        }
+
+        .field-plot {
+            display: grid;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            gap: 4px;
+        }
+        .field-plot-cell {
+            aspect-ratio: 1.25;
+            display: grid;
+            place-items: center;
+            border-radius: 3px;
+            background: #9a7048;
+            color: #f0d8a7;
+            font-size: clamp(8px, 1.4vw, 13px);
+            transition: background-color 250ms ease, color 250ms ease;
+        }
+        .field-plot-cell.prepared { background: #6f5139; }
+        .field-plot-cell.seeded { background: #51743e; color: #e5f2c9; }
+        .field-plot-cell.growing { background: #47733b; color: #d9f99d; }
+        .field-plot-cell.harvested { background: #b28743; color: #fff0bf; }
+        .dark .field-plot-cell { background: #795a3c; }
+        .dark .field-plot-cell.prepared { background: #59412f; }
+        .dark .field-plot-cell.seeded,
+        .dark .field-plot-cell.growing { background: #365c32; }
+        .dark .field-plot-cell.harvested { background: #8a6935; }
+    </style>
+</head>
+<body class="bg-agri-lightbg dark:bg-agri-darkbg text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 relative min-h-screen">
+
+    <!-- Interactive Mesh Canvas Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Outer Structural Layout -->
+    <div class="relative z-10 flex flex-col md:flex-row min-h-screen">
+
+        <!-- Mobile Header Bar -->
+        <div class="md:hidden flex items-center justify-between p-4 bg-white/90 dark:bg-agri-carddark/90 backdrop-blur-md shadow-md sticky top-0 z-50">
+            <div class="flex items-center space-x-3">
+                <svg class="w-8 h-8 text-agri-green dark:text-agri-amber" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="32" cy="72" r="12" fill="none" stroke="currentColor" stroke-width="4"/>
+                    <circle cx="72" cy="65" r="19" fill="none" stroke="currentColor" stroke-width="5"/>
+                    <path d="M32 60 L48 60 L52 40 L72 40 L72 65" fill="none" stroke="currentColor" stroke-width="5"/>
+                    <path d="M12 40 C 25 10, 75 10, 88 35" fill="none" stroke="#8C6239" stroke-width="3" stroke-dasharray="4,3"/>
+                </svg>
+                <span class="font-serif font-bold text-lg text-agri-darkgreen dark:text-agri-lightgreen">Alexandra Kun</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="themeToggleMobile" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+                <button id="sidebarToggle" class="p-2 text-agri-green dark:text-slate-200 text-xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation Layout -->
+        <aside id="sidebar" class="fixed md:sticky top-0 left-0 h-screen w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between p-6 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none">
+            
+            <div class="space-y-6">
+                <!-- Executive Branding Header -->
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 rounded-xl bg-agri-lightgreen dark:bg-agri-darkgreen/50 text-agri-green dark:text-agri-amber">
+                        <svg class="w-10 h-10" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="32" cy="72" r="12" fill="none" stroke="currentColor" stroke-width="4"/>
+                            <circle cx="32" cy="72" r="4" fill="currentColor"/>
+                            <circle cx="72" cy="65" r="19" fill="none" stroke="currentColor" stroke-width="5"/>
+                            <circle cx="72" cy="65" r="6" fill="currentColor"/>
+                            <path d="M32 60 L48 60 L52 40 L72 40 L72 65" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+                            <path d="M22 55 L35 55 L38 42 L25 42 Z" fill="currentColor"/>
+                            <path d="M42 40 L42 25 L45 25" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M12 40 C 25 10, 75 10, 88 35" fill="none" stroke="#8C6239" stroke-width="3" stroke-dasharray="4,3"/>
+                            <polygon points="88,35 82,28 92,28" fill="#8C6239"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="font-serif font-bold text-xl text-agri-darkgreen dark:text-white leading-tight">Alexandra Kun</h1>
+                        <p class="text-xs text-agri-brown dark:text-agri-amber font-medium">Supply Chain & Field Operations</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Bar -->
+                <nav class="space-y-1">
+                    <a href="#about" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-id-card w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Executive Bio</span>
+                    </a>
+                    <a href="#cv" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-history w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Interactive CV & Milestones</span>
+                    </a>
+                    <a href="#video-showcase" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-video w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Field Videos</span>
+                    </a>
+                    <a href="#gallery" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-images w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Photo Lightbox Gallery</span>
+                    </a>
+                    <a href="#matrix" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-sliders-h w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Capability Matrix</span>
+                    </a>
+                    <a href="#projects" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-diagram-project w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Case Studies</span>
+                    </a>
+                    <a href="#trade-learning" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-globe w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Import & Export</span>
+                    </a>
+                    <a href="#field-simulator" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-seedling w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Field Simulator</span>
+                    </a>
+                    <a href="#bodybuilding" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-dumbbell w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Bodybuilding</span>
+                    </a>
+                    <a href="#calculator" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-calculator w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Logistics Estimator</span>
+                    </a>
+                    <a href="#contact" class="nav-link flex items-center space-x-3 px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen hover:text-agri-green dark:hover:bg-slate-800 transition-colors font-medium text-xs">
+                        <i class="fas fa-paper-plane w-4 text-agri-green dark:text-agri-amber"></i>
+                        <span>Contact Channels</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Controls & Social Connections -->
+            <div class="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+                <button id="themeToggleDesktop" class="w-full flex items-center justify-between px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs">
+                    <span class="flex items-center space-x-2">
+                        <i class="fas fa-adjust text-agri-green dark:text-agri-amber"></i>
+                        <span class="font-medium">Theme Mode</span>
+                    </span>
+                    <span class="text-[10px] bg-white dark:bg-slate-900 px-2 py-0.5 rounded font-mono font-semibold uppercase">Toggle</span>
+                </button>
+
+                <div class="flex items-center justify-around text-slate-500 dark:text-slate-400 text-base">
+                    <a href="mailto:alexandra.kun@example.com" class="hover:text-agri-green dark:hover:text-agri-amber transition-colors" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-agri-green dark:hover:text-agri-amber transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="hover:text-agri-green dark:hover:text-agri-amber transition-colors" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <p class="text-[10px] text-center text-slate-400 dark:text-slate-500">© 2026 Alexandra Kun</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 md:p-10 max-w-6xl mx-auto space-y-16 overflow-x-hidden">
+
+            <!-- Executive Introduction Section -->
+            <section id="about" class="pt-4 scroll-mt-10">
+                <div class="glass rounded-3xl p-6 md:p-10 border border-slate-200/80 dark:border-slate-700/50 shadow-xl relative overflow-hidden space-y-8">
+                    
+                    <!-- Language Switcher Control -->
+                    <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-700/60 pb-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-language text-agri-green dark:text-agri-amber text-lg"></i>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Executive Profile Language:</span>
+                        </div>
+                        <div class="flex space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                            <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-lg text-xs font-bold bg-agri-green text-white transition-all">EN</button>
+                            <button onclick="setLanguage('it')" id="lang-btn-it" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">IT</button>
+                            <button onclick="setLanguage('es')" id="lang-btn-es" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">ES</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        
+                        <!-- Profile Copy -->
+                        <div class="lg:col-span-8 space-y-6">
+                            
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-agri-lightgreen dark:bg-agri-darkgreen/60 text-agri-green dark:text-agri-lightgreen text-xs font-semibold tracking-wide uppercase border border-agri-green/20">
+                                <i class="fas fa-building-columns text-agri-brown dark:text-agri-amber"></i>
+                                <span>John Deere Logistics & Heavy Operations Management</span>
+                            </div>
+
+                            <h1 class="text-3xl md:text-5xl font-serif font-extrabold text-slate-900 dark:text-white leading-tight">
+                                Alexandra Kun
+                            </h1>
+
+                            <p class="text-xs font-mono font-bold text-agri-brown dark:text-agri-amber uppercase tracking-widest">
+                                Import & Export Manager | Heavy Machinery Operator
+                            </p>
+
+                            <!-- Dynamic Language-Switched Introduction Block -->
+                            <div id="bioTextContainer" class="text-sm md:text-base text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 font-normal">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+
+                            <!-- Academic & Athletic Foundations Cards -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60">
+                                <div class="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-1">
+                                    <span class="text-xs font-bold text-agri-green dark:text-agri-amber block"><i class="fas fa-graduation-cap mr-1"></i> Supply Chain Degree</span>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">University of Global Supply Chain Alumna.</p>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-1">
+                                    <span class="text-xs font-bold text-agri-green dark:text-agri-amber block"><i class="fas fa-tractor mr-1"></i> 3 Years Heavy Fleet</span>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Operational expertise in field machinery.</p>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-1">
+                                    <span class="text-xs font-bold text-agri-green dark:text-agri-amber block"><i class="fas fa-dumbbell mr-1"></i> Bodybuilder Focus</span>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Rigorous mental and physical discipline.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Profile Media Card -->
+                        <div class="lg:col-span-4 flex flex-col items-center justify-center space-y-4">
+                            <div class="w-full aspect-[4/5] max-w-[280px] rounded-3xl bg-slate-900 border border-slate-700 p-2 shadow-2xl relative flex flex-col justify-between overflow-hidden group">
+                                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80" alt="Alexandra Kun Machinery Inspection" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x800/1E3F1A/FFFFFF?text=Alexandra+Kun'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+
+                                <div class="flex justify-between items-center text-xs font-mono text-agri-amber z-10 p-2">
+                                    <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700">SYS.ID: AK-9021</span>
+                                    <span class="flex items-center bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1 animate-pulse"></span> ONLINE</span>
+                                </div>
+
+                                <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-3 rounded-2xl text-center z-10">
+                                    <span class="text-[10px] font-mono text-agri-amber block uppercase tracking-wider font-bold">John Deere Field & Trade</span>
+                                    <span class="text-xs font-bold text-white">Alexandra Kun</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- INTERACTIVE CV / EXPERIENCE TIMELINE SECTION -->
+            <section id="cv" class="scroll-mt-10 space-y-6">
+                <div>
+                    <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Professional Background</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Interactive Career & Milestone Timeline</h2>
+                </div>
+
+                <div class="space-y-4">
+                    
+                    <!-- CV Item 1: John Deere Logistics -->
+                    <div class="glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200/60 dark:border-slate-700/60 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-3 rounded-xl bg-agri-lightgreen dark:bg-agri-darkgreen text-agri-green dark:text-agri-amber text-lg">
+                                    <i class="fas fa-boxes-packing"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white">Import & Export Operations Manager</h3>
+                                    <p class="text-xs font-semibold text-agri-brown dark:text-agri-amber">John Deere Operations | 1.5 Years Professional Tenure</p>
+                                </div>
+                            </div>
+                            <button onclick="toggleCvDetails('cv1')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-agri-green hover:text-white transition-colors flex items-center space-x-1 self-start md:self-auto">
+                                <span>Inspect Metrics</span>
+                                <i id="cv1-icon" class="fas fa-chevron-down text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Supervising global cross-border trade pipelines, international dealer coordination, customs compliance documentation, and multi-country logistics scheduling.
+                        </p>
+
+                        <!-- Expandable Detail Drawer -->
+                        <div id="cv1-details" class="hidden pt-2 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Tariff Compliance</span>
+                                    <span class="text-xs font-bold text-agri-green dark:text-emerald-400">100% Audit Precision</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Export Volume</span>
+                                    <span class="text-xs font-bold text-agri-brown dark:text-agri-amber">Cross-Continental Fleet</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Contract Languages</span>
+                                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Italian, English, Spanish</span>
+                                </div>
+                            </div>
+                            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
+                                <li>Streamlined customs clearance protocols, reducing container retention times at maritime ports by 18%.</li>
+                                <li>Coordinated directly with international dealers for emergency replacement parts distribution.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- CV Item 2: Heavy Tractor Operator -->
+                    <div class="glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200/60 dark:border-slate-700/60 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-3 rounded-xl bg-green-100 dark:bg-green-900/40 text-agri-green text-lg">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white">Heavy Machinery & Tractor Operator</h3>
+                                    <p class="text-xs font-semibold text-agri-brown dark:text-agri-amber">Field Machinery Operations | 3 Years Active Experience</p>
+                                </div>
+                            </div>
+                            <button onclick="toggleCvDetails('cv2')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-agri-green hover:text-white transition-colors flex items-center space-x-1 self-start md:self-auto">
+                                <span>Inspect Metrics</span>
+                                <i id="cv2-icon" class="fas fa-chevron-down text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Direct field execution, soil cultivation, precision planting, and harvesting using high-horsepower tractors equipped with modern telemetry guidance systems.
+                        </p>
+
+                        <div id="cv2-details" class="hidden pt-2 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Logged Operating Hours</span>
+                                    <span class="text-xs font-bold text-agri-green dark:text-emerald-400">2,500+ Field Hours</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Equipment Class</span>
+                                    <span class="text-xs font-bold text-agri-brown dark:text-agri-amber">John Deere 8R / 9R Series</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Field Safety Record</span>
+                                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Zero Incident Rating</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CV Item 3: Academics & Athletic Discipline -->
+                    <div class="glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200/60 dark:border-slate-700/60 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-3 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-agri-amber text-lg">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white">Global Supply Chain Alumna & Competitive Athlete</h3>
+                                    <p class="text-xs font-semibold text-agri-brown dark:text-agri-amber">University Graduate | High School Alumna | Bodybuilder</p>
+                                </div>
+                            </div>
+                            <button onclick="toggleCvDetails('cv3')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-agri-green hover:text-white transition-colors flex items-center space-x-1 self-start md:self-auto">
+                                <span>Inspect Metrics</span>
+                                <i id="cv3-icon" class="fas fa-chevron-down text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Combining rigorous academic methodologies in supply chain optimization with the extreme physical and mental resilience required in competitive bodybuilding.
+                        </p>
+
+                        <div id="cv3-details" class="hidden pt-2 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Academic Focus</span>
+                                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Quantitative Logistics & Customs Protocols</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase block">Athletic Discipline</span>
+                                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Bodybuilding Strength & Nutritional Rigor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="bodybuilding" class="scroll-mt-10 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+                    <div class="md:col-span-5 relative min-h-64 md:min-h-80 overflow-hidden rounded-2xl bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85" alt="Strength training in a gym" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 text-white text-xs font-bold uppercase tracking-wider"><i class="fas fa-dumbbell mr-2 text-agri-amber"></i>Athletic discipline</span>
+                    </div>
+                    <div class="md:col-span-7 space-y-5">
+                        <div>
+                            <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Personal Discipline</span>
+                            <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white mt-1">Competitive Bodybuilding</h2>
+                        </div>
+                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Bodybuilding is an important part of Alexandra's life, built on consistent training, nutritional rigor, and long-term commitment. The same practice develops the physical resilience and mental focus she brings to demanding field operations and logistics work.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <div><i class="fas fa-calendar-check text-agri-green dark:text-agri-amber mb-2"></i><h3 class="text-xs font-bold text-slate-800 dark:text-white">Consistency</h3><p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Long-term training commitment</p></div>
+                            <div><i class="fas fa-apple-whole text-agri-green dark:text-agri-amber mb-2"></i><h3 class="text-xs font-bold text-slate-800 dark:text-white">Nutrition</h3><p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Structured nutritional discipline</p></div>
+                            <div><i class="fas fa-bullseye text-agri-green dark:text-agri-amber mb-2"></i><h3 class="text-xs font-bold text-slate-800 dark:text-white">Resilience</h3><p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Focus through demanding goals</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/70 p-5 md:p-7 space-y-5">
+                    <div>
+                        <span class="text-agri-brown dark:text-agri-amber font-semibold text-[10px] tracking-wider uppercase">Quick Check-In</span>
+                        <h3 class="text-xl font-serif font-bold text-slate-900 dark:text-white mt-1">Move & Recover</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Choose what best describes a typical week to get a simple activity snapshot.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <fieldset class="space-y-2">
+                            <legend class="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2">Active days per week</legend>
+                            <div class="flex flex-wrap gap-2" role="group" aria-label="Active days per week">
+                                <button type="button" data-checkin-group="days" data-value="0-1" aria-pressed="false" onclick="setActivityChoice('days', '0-1', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">0-1</button>
+                                <button type="button" data-checkin-group="days" data-value="2-3" aria-pressed="false" onclick="setActivityChoice('days', '2-3', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">2-3</button>
+                                <button type="button" data-checkin-group="days" data-value="4-5" aria-pressed="false" onclick="setActivityChoice('days', '4-5', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">4-5</button>
+                                <button type="button" data-checkin-group="days" data-value="6-7" aria-pressed="false" onclick="setActivityChoice('days', '6-7', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">6-7</button>
+                            </div>
+                            <span class="block text-[10px] text-slate-400">days with intentional activity</span>
+                        </fieldset>
+
+                        <fieldset class="space-y-2">
+                            <legend class="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2">Everyday movement</legend>
+                            <div class="flex flex-wrap gap-2" role="group" aria-label="Everyday movement">
+                                <button type="button" data-checkin-group="movement" data-value="Under 20 min" aria-pressed="false" onclick="setActivityChoice('movement', 'Under 20 min', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">Under 20m</button>
+                                <button type="button" data-checkin-group="movement" data-value="20-44 min" aria-pressed="false" onclick="setActivityChoice('movement', '20-44 min', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">20-44m</button>
+                                <button type="button" data-checkin-group="movement" data-value="45+ min" aria-pressed="false" onclick="setActivityChoice('movement', '45+ min', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">45+m</button>
+                            </div>
+                            <span class="block text-[10px] text-slate-400">walking, active travel, or similar</span>
+                        </fieldset>
+
+                        <fieldset class="space-y-2">
+                            <legend class="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2">Typical energy</legend>
+                            <div class="flex flex-wrap gap-2" role="group" aria-label="Typical energy">
+                                <button type="button" data-checkin-group="energy" data-value="Low" aria-pressed="false" onclick="setActivityChoice('energy', 'Low', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">Low</button>
+                                <button type="button" data-checkin-group="energy" data-value="Varies" aria-pressed="false" onclick="setActivityChoice('energy', 'Varies', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">Varies</button>
+                                <button type="button" data-checkin-group="energy" data-value="Good" aria-pressed="false" onclick="setActivityChoice('energy', 'Good', this)" class="activity-choice rounded-md border border-slate-300 dark:border-slate-600 px-3 py-2 text-[11px] text-slate-700 dark:text-slate-200">Good</button>
+                            </div>
+                            <span class="block text-[10px] text-slate-400">how you feel most days</span>
+                        </fieldset>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                        <button type="button" onclick="buildActivitySnapshot()" class="px-5 py-3 rounded-lg bg-agri-green hover:bg-agri-darkgreen text-white text-xs font-bold transition-colors"><i class="fas fa-chart-simple mr-2"></i>See my activity snapshot</button>
+                        <p id="activityCheckinStatus" aria-live="polite" class="text-xs text-slate-500 dark:text-slate-400">Your choices stay on this page unless you choose to email them.</p>
+                    </div>
+
+                    <div id="activitySnapshot" class="hidden border-t border-slate-200 dark:border-slate-700 pt-5 space-y-4" aria-live="polite">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Your movement profile</p>
+                            <h4 id="activitySnapshotTitle" class="text-lg font-serif font-bold text-slate-900 dark:text-white mt-1"></h4>
+                            <p id="activitySnapshotCopy" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 mt-1"></p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                            <a id="activityContactLink" class="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-agri-amber text-slate-900 text-xs font-bold hover:opacity-90 transition-opacity" href="mailto:alexandra.kun@example.com"><i class="fas fa-envelope mr-2"></i>Discuss my activity goals</a>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400">Opens an email draft with your selections. Nothing is sent automatically.</p>
+                        </div>
+                    </div>
+                    <p class="text-[10px] leading-relaxed text-slate-400 dark:text-slate-500">This is a simple activity reflection, not a health assessment or medical advice. If you have health concerns or exercise restrictions, speak with a qualified health professional.</p>
+                </div>
+            </section>
+
+            <!-- HTML5 VIDEO MEDIA SHOWCASE SECTION -->
+            <section id="video-showcase" class="scroll-mt-10 space-y-6">
+                <div>
+                    <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Live Visual Media</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Field Operations & Machinery Footage</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- HTML5 Video Player 1 -->
+                    <div class="glass rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-xl space-y-4 p-4">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
+                            <video controls preload="metadata" class="w-full h-full object-cover" poster="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/John_Deere_tractor_when_plowing_a_field.webm/960px--John_Deere_tractor_when_plowing_a_field.webm.jpg">
+                                <source src="https://upload.wikimedia.org/wikipedia/commons/9/96/John_Deere_tractor_when_plowing_a_field.webm" type="video/webm">
+                                Your browser does not support HTML5 video playback.
+                            </video>
+                            <span class="absolute top-3 left-3 bg-agri-green/90 text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded-md uppercase tracking-wider backdrop-blur-md">
+                                <i class="fas fa-tractor mr-1"></i> Heavy Fleet Field Operation
+                            </span>
+                        </div>
+                        <div class="space-y-1 px-2">
+                            <h3 class="font-serif font-bold text-base text-slate-900 dark:text-white">Real Field Footage: Tractor Ploughing</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">A John Deere tractor ploughing a field near Wilthen, Germany. Recorded September 2018.</p>
+                            <p class="text-[10px] text-slate-400 dark:text-slate-500">Video by Fiver, der Hellseher, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" class="underline hover:text-agri-green dark:hover:text-agri-amber">CC BY-SA 4.0</a> via <a href="https://commons.wikimedia.org/wiki/File:John_Deere_tractor_when_plowing_a_field.webm" target="_blank" rel="noopener noreferrer" class="underline hover:text-agri-green dark:hover:text-agri-amber">Wikimedia Commons</a>.</p>
+                        </div>
+                    </div>
+
+                    <!-- HTML5 Video Player 2 -->
+                    <div class="glass rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-xl space-y-4 p-4">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
+                            <video controls class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80">
+                                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video playback.
+                            </video>
+                            <span class="absolute top-3 left-3 bg-agri-brown/90 text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded-md uppercase tracking-wider backdrop-blur-md">
+                                <i class="fas fa-ship mr-1"></i> Maritime Port Freight Hub
+                            </span>
+                        </div>
+                        <div class="space-y-1 px-2">
+                            <h3 class="font-serif font-bold text-base text-slate-900 dark:text-white">Intermodal Export Freight Dispatch</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">
+                                Footage illustrating container loading and custom tariff compliance checks at international export docks.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- INTERACTIVE PHOTO LIGHTBOX GALLERY SECTION -->
+            <section id="gallery" class="scroll-mt-10 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Visual Documentation</span>
+                        <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">High-Resolution Photo Lightbox Gallery</h2>
+                    </div>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Click any photo to launch full-screen inspector</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="photoGalleryGrid">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div onclick="openLightbox(0)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1530267981608-bc70a3707c07?auto=format&fit=crop&w=800&q=80" alt="John Deere Tractor Operations" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/2D5A27/FFFFFF?text=Tractor+Field+Operation'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">Field Harvest Tillage</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div onclick="openLightbox(1)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Global Supply Container Logistics" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/8C6239/FFFFFF?text=Global+Logistics+Hub'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">Port Import / Export Hub</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div onclick="openLightbox(2)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" alt="Precision AgTech Dashboards" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/1E3F1A/FFFFFF?text=GPS+Dashboard+Telemetry'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">GPS Telemetry Cockpit</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div onclick="openLightbox(3)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Bodybuilding & Athletic Training" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/4A5568/FFFFFF?text=Athletic+Training'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">Athletic Discipline & Training</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div onclick="openLightbox(4)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="Agricultural Fields and Modern Technology" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/2D5A27/FFFFFF?text=Agricultural+Fields'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">Modern AgTech Field Survey</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div onclick="openLightbox(5)" class="group cursor-pointer glass rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-700/60 shadow-md transition-all">
+                        <div class="relative h-56 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80" alt="Freight Transport Logistics" class="w-full h-full object-cover img-hover-zoom" onerror="this.src='https://placehold.co/800x600/D97706/FFFFFF?text=Heavy+Transport'">
+                            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors"></div>
+                            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-white z-10">
+                                <span class="text-xs font-bold font-serif shadow-sm">Heavy Machinery Dispatch</span>
+                                <span class="p-1.5 rounded-lg bg-slate-900/80 text-agri-amber text-xs"><i class="fas fa-expand"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- INTERACTIVE CAPABILITY MATRIX SECTION -->
+            <section id="matrix" class="scroll-mt-10 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Capability Analytics</span>
+                        <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Technical Skill & Competency Matrix</h2>
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-6 md:p-8 border border-slate-200/80 dark:border-slate-700/50 shadow-lg space-y-8">
+                    
+                    <div class="flex flex-wrap gap-2 pb-4 border-b border-slate-200 dark:border-slate-700">
+                        <button onclick="filterCapabilities('all')" id="cap-btn-all" class="cap-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-agri-green text-white shadow-md transition-all">
+                            All Competencies
+                        </button>
+                        <button onclick="filterCapabilities('field')" id="cap-btn-field" class="cap-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen dark:hover:bg-slate-700 transition-all">
+                            Field Machinery & Operator (3 Yrs)
+                        </button>
+                        <button onclick="filterCapabilities('supply')" id="cap-btn-supply" class="cap-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-agri-lightgreen dark:hover:bg-slate-700 transition-all">
+                            Global Supply & Import/Export (1.5 Yrs)
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="skillsGrid">
+                        
+                        <div class="skill-card field p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-green-100 dark:bg-green-900/30 text-agri-green dark:text-emerald-400 text-base">
+                                    <i class="fas fa-truck-monster"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-agri-green dark:text-emerald-400">95% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">John Deere Heavy Fleet Control</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Maneuvering, tillage, planting, and emergency field repair.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-agri-green dark:bg-emerald-400 h-full rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card supply p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-agri-brown dark:text-agri-amber text-base">
+                                    <i class="fas fa-file-signature"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-agri-brown dark:text-agri-amber">90% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Customs & Regulatory Tariff Filing</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Export compliance and phytosanitary certificate management.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-agri-brown dark:bg-agri-amber h-full rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card supply p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-base">
+                                    <i class="fas fa-route"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-blue-600 dark:text-blue-400">88% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Global Route Optimization</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Intermodal freight scheduling and inventory control.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-blue-600 dark:bg-blue-400 h-full rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card field p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-base">
+                                    <i class="fas fa-satellite-dish"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-purple-600 dark:text-purple-400">85% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">GPS Telemetry Software Setup</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Precision guidance software integration on tractor dashboards.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-purple-600 dark:bg-purple-400 h-full rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card supply field p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-base">
+                                    <i class="fas fa-language"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">92% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Trilingual Negotiation</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Executing contracts in Italian, English, and Spanish.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-emerald-600 dark:bg-emerald-400 h-full rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card field p-5 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-agri-amber text-base">
+                                    <i class="fas fa-dumbbell"></i>
+                                </span>
+                                <span class="text-xs font-mono font-bold text-agri-amber">96% Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Athletic Discipline & Endurance</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Bodybuilding mindset applied to grueling field hours and logistics demands.</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-agri-amber h-full rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERACTIVE PROJECT GALLERY & MODAL SECTION -->
+            <section id="projects" class="scroll-mt-10 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Case Studies</span>
+                        <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Project Case Studies & Blueprints</h2>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterProjects('all')" class="proj-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-agri-green text-white">All</button>
+                        <button onclick="filterProjects('agtech')" class="proj-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">AgTech</button>
+                        <button onclick="filterProjects('logistics')" class="proj-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Logistics</button>
+                        <button onclick="filterProjects('smallholder')" class="proj-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Smallholders</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectsContainer">
+                    
+                    <div class="project-card agtech glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <span class="px-2.5 py-1 rounded-md bg-agri-lightgreen dark:bg-agri-darkgreen text-agri-green dark:text-agri-lightgreen text-[10px] font-bold uppercase tracking-wider">AgTech & Machinery</span>
+                                <i class="fas fa-microchip text-agri-brown dark:text-agri-amber"></i>
+                            </div>
+                            <h3 class="text-base font-serif font-bold text-slate-900 dark:text-white">Smart Telemetry Fleet Deployment</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">
+                                Integrated real-time GPS telemetry and field diagnostics across John Deere heavy tractor fleets to optimize fuel usage.
+                            </p>
+                        </div>
+                        <button onclick="openProjectModal('p1')" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-agri-green hover:text-white dark:hover:bg-agri-amber dark:hover:text-slate-900 text-slate-800 dark:text-slate-200 text-xs font-bold transition-colors flex items-center justify-center space-x-2">
+                            <span>Inspect Blueprint</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="project-card logistics glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <span class="px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-[10px] font-bold uppercase tracking-wider">Global Logistics</span>
+                                <i class="fas fa-ship text-agri-green"></i>
+                            </div>
+                            <h3 class="text-base font-serif font-bold text-slate-900 dark:text-white">Cross-Border Machinery Export</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">
+                                Managed cross-continental customs, phytosanitary certifications, and intermodal transport for high-value agricultural machinery exports.
+                            </p>
+                        </div>
+                        <button onclick="openProjectModal('p2')" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-agri-green hover:text-white dark:hover:bg-agri-amber dark:hover:text-slate-900 text-slate-800 dark:text-slate-200 text-xs font-bold transition-colors flex items-center justify-center space-x-2">
+                            <span>Inspect Blueprint</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="project-card smallholder agtech glass rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700/60 shadow-md flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-wider">Youth & Smallholders</span>
+                                <i class="fas fa-users-gear text-agri-brown"></i>
+                            </div>
+                            <h3 class="text-base font-serif font-bold text-slate-900 dark:text-white">Youth Ag-Cooperative Initiative</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">
+                                Designed equipment-sharing protocols for young agriculturalists to access modern high-efficiency machinery affordably.
+                            </p>
+                        </div>
+                        <button onclick="openProjectModal('p3')" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-agri-green hover:text-white dark:hover:bg-agri-amber dark:hover:text-slate-900 text-slate-800 dark:text-slate-200 text-xs font-bold transition-colors flex items-center justify-center space-x-2">
+                            <span>Inspect Blueprint</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="trade-learning" class="scroll-mt-10 space-y-6">
+                <div>
+                    <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Trade & Logistics</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">How Import & Export Works</h2>
+                    <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">A cross-border shipment moves through planning, documentation, customs, and delivery.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-5">
+                    <div class="border-t-2 border-agri-green dark:border-agri-amber pt-4">
+                        <span class="text-[10px] font-mono font-bold text-agri-brown dark:text-agri-amber">01 / PLAN</span>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mt-2"><i class="fas fa-compass text-agri-green dark:text-agri-amber mr-2"></i>Know the shipment</h3>
+                        <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 mt-2">Confirm goods, destination, trade restrictions, likely duties, and the agreed Incoterm responsibilities.</p>
+                    </div>
+                    <div class="border-t-2 border-agri-green dark:border-agri-amber pt-4">
+                        <span class="text-[10px] font-mono font-bold text-agri-brown dark:text-agri-amber">02 / DOCUMENT</span>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mt-2"><i class="fas fa-file-invoice text-agri-green dark:text-agri-amber mr-2"></i>Prepare paperwork</h3>
+                        <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 mt-2">Align the commercial invoice, packing list, transport documents, and any certificates or permits needed.</p>
+                    </div>
+                    <div class="border-t-2 border-agri-green dark:border-agri-amber pt-4">
+                        <span class="text-[10px] font-mono font-bold text-agri-brown dark:text-agri-amber">03 / SHIP</span>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mt-2"><i class="fas fa-ship text-agri-green dark:text-agri-amber mr-2"></i>Declare & dispatch</h3>
+                        <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 mt-2">Arrange freight and submit accurate export details, including description, classification, origin, and value.</p>
+                    </div>
+                    <div class="border-t-2 border-agri-green dark:border-agri-amber pt-4">
+                        <span class="text-[10px] font-mono font-bold text-agri-brown dark:text-agri-amber">04 / DELIVER</span>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mt-2"><i class="fas fa-box-open text-agri-green dark:text-agri-amber mr-2"></i>Clear & receive</h3>
+                        <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 mt-2">Complete destination import clearance, settle applicable charges, release the goods, and confirm delivery.</p>
+                    </div>
+                </div>
+
+                <div id="tradeQuiz" class="glass rounded-2xl border border-slate-200/80 dark:border-slate-700/60 shadow-lg overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12">
+                        <div class="lg:col-span-4 bg-agri-darkgreen text-white p-6 md:p-8 flex flex-col justify-between gap-6">
+                            <div>
+                                <span class="text-[10px] font-bold tracking-wider uppercase text-amber-300">Interactive Challenge</span>
+                                <h3 class="text-xl font-serif font-bold mt-2">Shipment Desk</h3>
+                                <p class="text-xs leading-relaxed text-white/75 mt-2">Make four decisions to move an agricultural machinery shipment across the border.</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] font-mono mb-2"><span id="tradeQuizProgress">Question 1 of 4</span><span id="tradeQuizScore">Score 0</span></div>
+                                <div class="h-1.5 rounded-full bg-white/20 overflow-hidden" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0"><div id="tradeQuizProgressBar" class="h-full bg-amber-400 transition-all duration-300" style="width:0%"></div></div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-8 p-5 md:p-8 space-y-4">
+                            <div>
+                                <p id="tradeQuizStage" class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Step 1 / Plan</p>
+                                <h4 id="tradeQuizQuestion" class="text-base md:text-lg font-bold text-slate-900 dark:text-white mt-1"></h4>
+                            </div>
+                            <div id="tradeQuizChoices" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+                            <p id="tradeQuizFeedback" aria-live="polite" class="min-h-10 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+                            <div class="flex flex-wrap gap-2">
+                                <button id="tradeQuizNext" type="button" onclick="advanceTradeQuiz()" class="hidden px-4 py-2.5 rounded-lg bg-agri-green text-white text-xs font-bold hover:bg-agri-darkgreen transition-colors">Next step <i class="fas fa-arrow-right ml-2"></i></button>
+                                <button id="tradeQuizRestart" type="button" onclick="resetTradeQuiz()" class="hidden px-4 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"><i class="fas fa-rotate-left mr-2"></i>Play again</button>
+                            </div>
+                            <p class="text-[10px] leading-relaxed text-slate-400 dark:text-slate-500 border-t border-slate-200 dark:border-slate-700 pt-3">Learning overview only. Requirements vary by country, product, and contract; check current official rules and qualified trade advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="field-simulator" class="scroll-mt-10 space-y-6">
+                <div>
+                    <span class="text-agri-brown dark:text-agri-amber font-semibold text-xs tracking-wider uppercase">Interactive Field Experience</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">A Day in the Field</h2>
+                    <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">Run a machinery workday or experiment with weather and watch the crop respond.</p>
+                </div>
+
+                <div class="glass rounded-3xl border border-slate-200/80 dark:border-slate-700/60 shadow-xl overflow-hidden">
+                    <div class="flex border-b border-slate-200 dark:border-slate-700" role="tablist" aria-label="Field simulator modes">
+                        <button id="field-mode-work" role="tab" aria-selected="true" onclick="setFieldGameMode('work')" class="flex-1 px-4 py-4 text-xs md:text-sm font-bold text-agri-green dark:text-agri-lightgreen border-b-2 border-agri-green dark:border-agri-amber">
+                            <i class="fas fa-tractor mr-2"></i>Field Work
+                        </button>
+                        <button id="field-mode-weather" role="tab" aria-selected="false" onclick="setFieldGameMode('weather')" class="flex-1 px-4 py-4 text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 border-b-2 border-transparent">
+                            <i class="fas fa-cloud-sun mr-2"></i>Weather Lab
+                        </button>
+                    </div>
+
+                    <div id="field-work-panel" class="p-5 md:p-8 space-y-6" role="tabpanel" aria-labelledby="field-mode-work">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <p class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Today's contract</p>
+                                        <h3 class="text-lg font-serif font-bold text-slate-900 dark:text-white">Prepare and harvest a wheat field</h3>
+                                        <p id="fieldWorkStatus" aria-live="polite" class="text-xs text-slate-600 dark:text-slate-300 mt-1">Check the tractor before heading into the field.</p>
+                                    </div>
+                                    <span class="shrink-0 rounded-md bg-agri-lightgreen dark:bg-agri-darkgreen px-3 py-2 text-[10px] font-bold text-agri-green dark:text-agri-lightgreen">FIELD 04</span>
+                                </div>
+
+                                <div class="rounded-xl bg-[#d9c39a] dark:bg-[#594b37] p-3 md:p-4" aria-label="Field plot progress">
+                                    <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-[#4e432e] dark:text-amber-100 mb-3">
+                                        <span>Wheat field</span><span id="fieldPlotStage">Unworked soil</span>
+                                    </div>
+                                    <div id="fieldWorkPlot" class="field-plot"></div>
+                                    <div class="flex justify-between text-[9px] text-[#5f5039] dark:text-amber-100/80 mt-2"><span>North access</span><span>8 GPS-guided passes</span></div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2" aria-label="Workday statistics">
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><span class="block text-[9px] uppercase text-slate-500 dark:text-slate-400">Shift</span><strong id="fieldWorkHours" class="text-sm font-mono text-slate-900 dark:text-white">0 h</strong></div>
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><span class="block text-[9px] uppercase text-slate-500 dark:text-slate-400">Fuel</span><strong id="fieldWorkFuel" class="text-sm font-mono text-slate-900 dark:text-white">100%</strong></div>
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><span class="block text-[9px] uppercase text-slate-500 dark:text-slate-400">Yield</span><strong id="fieldWorkYield" class="text-sm font-mono text-slate-900 dark:text-white">--</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 flex flex-col justify-between gap-5 rounded-xl bg-white/70 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 p-5">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Operator checklist</p>
+                                    <ol id="fieldWorkChecklist" class="mt-3 space-y-2 text-xs text-slate-600 dark:text-slate-300"></ol>
+                                </div>
+                                <div class="space-y-3">
+                                    <button id="fieldWorkAction" onclick="advanceFieldWork()" class="w-full py-3 rounded-lg bg-agri-green hover:bg-agri-darkgreen text-white text-xs font-bold transition-colors"><i class="fas fa-clipboard-check mr-2"></i>Inspect tractor</button>
+                                    <button onclick="resetFieldWork()" title="Restart field work" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold"><i class="fas fa-rotate-left mr-2"></i>Restart shift</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="field-weather-panel" class="hidden p-5 md:p-8 space-y-6" role="tabpanel" aria-labelledby="field-mode-weather">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <p class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Weather experiment</p>
+                                        <h3 class="text-lg font-serif font-bold text-slate-900 dark:text-white">What will the next day bring?</h3>
+                                        <p id="weatherStatus" aria-live="polite" class="text-xs text-slate-600 dark:text-slate-300 mt-1">Choose the forecast, then advance one day to see the crop respond.</p>
+                                    </div>
+                                    <span class="shrink-0 rounded-md bg-amber-100 dark:bg-amber-900/40 px-3 py-2 text-[10px] font-bold text-amber-800 dark:text-amber-200">DAY <span id="weatherDay">1</span></span>
+                                </div>
+
+                                <div id="weatherCropPlot" class="min-h-36 rounded-xl p-5 flex items-end justify-around overflow-hidden bg-gradient-to-b from-sky-200 to-lime-100 dark:from-slate-700 dark:to-emerald-950" aria-label="Crop response visualization"></div>
+                                <div class="grid grid-cols-3 gap-2" aria-label="Crop conditions">
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><div class="flex justify-between text-[9px] uppercase text-slate-500 dark:text-slate-400"><span>Soil moisture</span><span id="weatherMoistureValue">56%</span></div><div class="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div id="weatherMoistureBar" class="h-full bg-sky-500 transition-all" style="width:56%"></div></div></div>
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><div class="flex justify-between text-[9px] uppercase text-slate-500 dark:text-slate-400"><span>Plant health</span><span id="weatherHealthValue">100%</span></div><div class="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div id="weatherHealthBar" class="h-full bg-emerald-500 transition-all" style="width:100%"></div></div></div>
+                                    <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-3"><div class="flex justify-between text-[9px] uppercase text-slate-500 dark:text-slate-400"><span>Growth</span><span id="weatherGrowthValue">12%</span></div><div class="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div id="weatherGrowthBar" class="h-full bg-lime-500 transition-all" style="width:12%"></div></div></div>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 space-y-4 rounded-xl bg-white/70 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 p-5">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-wider text-agri-brown dark:text-agri-amber">Set the forecast</p>
+                                    <div class="grid grid-cols-2 gap-2 mt-3">
+                                        <button data-weather="sun" onclick="selectFieldWeather('sun')" aria-pressed="true" class="weather-choice rounded-lg border-2 border-agri-green dark:border-agri-amber bg-agri-lightgreen dark:bg-agri-darkgreen/60 p-3 text-left text-xs font-bold text-slate-800 dark:text-white"><i class="fas fa-sun text-amber-500 mr-2"></i>Clear sun</button>
+                                        <button data-weather="rain" onclick="selectFieldWeather('rain')" aria-pressed="false" class="weather-choice rounded-lg border-2 border-transparent bg-slate-100 dark:bg-slate-700 p-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200"><i class="fas fa-cloud-rain text-sky-500 mr-2"></i>Steady rain</button>
+                                        <button data-weather="heat" onclick="selectFieldWeather('heat')" aria-pressed="false" class="weather-choice rounded-lg border-2 border-transparent bg-slate-100 dark:bg-slate-700 p-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200"><i class="fas fa-temperature-high text-orange-500 mr-2"></i>Heatwave</button>
+                                        <button data-weather="frost" onclick="selectFieldWeather('frost')" aria-pressed="false" class="weather-choice rounded-lg border-2 border-transparent bg-slate-100 dark:bg-slate-700 p-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200"><i class="fas fa-snowflake text-sky-400 mr-2"></i>Late frost</button>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <p id="weatherForecastNote" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">Sunshine supports growth, while the soil gradually dries.</p>
+                                    <button onclick="advanceFieldWeather()" class="w-full py-3 rounded-lg bg-agri-green hover:bg-agri-darkgreen text-white text-xs font-bold transition-colors"><i class="fas fa-forward-step mr-2"></i>Advance one day</button>
+                                    <button onclick="resetFieldWeather()" title="Reset crop conditions" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold"><i class="fas fa-rotate-left mr-2"></i>Reset experiment</button>
+                                </div>
+                                <p class="text-[10px] leading-relaxed text-slate-400 dark:text-slate-500">Simplified learning simulation. Real crop responses depend on soil, crop variety, and local conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERACTIVE AGRI-LOGISTICS COST ESTIMATOR CALCULATOR -->
+            <section id="calculator" class="scroll-mt-10 space-y-6">
+                <div class="glass rounded-3xl p-6 md:p-10 border border-slate-200/80 dark:border-slate-700/50 shadow-xl space-y-8">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 text-agri-brown dark:text-agri-amber text-xs font-bold uppercase tracking-wider mb-1">
+                            <i class="fas fa-calculator"></i>
+                            <span>Interactive Operational Scope Tool</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Agri-Logistics & Operations Estimator</h2>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">
+                            Calculate estimated scopes for machine transport, field operator hours, and customs regulatory management.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <div class="lg:col-span-7 space-y-6">
+                            
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <label for="tonnageSlider" class="text-slate-700 dark:text-slate-200">Machinery Volume / Freight Weight</label>
+                                    <span id="tonnageValue" class="text-agri-green dark:text-agri-amber font-mono">25 Tons</span>
+                                </div>
+                                <input type="range" id="tonnageSlider" min="5" max="200" value="25" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-agri-green dark:accent-agri-amber">
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <label for="hoursSlider" class="text-slate-700 dark:text-slate-200">Field Machine Testing & Operator Hours</label>
+                                    <span id="hoursValue" class="text-agri-green dark:text-agri-amber font-mono">40 Hours</span>
+                                </div>
+                                <input type="range" id="hoursSlider" min="0" max="150" value="40" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-agri-green dark:accent-agri-amber">
+                            </div>
+
+                            <div class="space-y-3 pt-2">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200 block">Required Logistics & Technical Services:</span>
+                                
+                                <label class="flex items-center space-x-3 text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+                                    <input type="checkbox" id="optCustoms" checked class="w-4 h-4 rounded text-agri-green focus:ring-agri-green dark:bg-slate-800">
+                                    <span>Customs Tariff & Phytosanitary Filing (+€1,200)</span>
+                                </label>
+
+                                <label class="flex items-center space-x-3 text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+                                    <input type="checkbox" id="optTelemetry" checked class="w-4 h-4 rounded text-agri-green focus:ring-agri-green dark:bg-slate-800">
+                                    <span>Precision Telemetry & Guidance Dashboard Integration (+€850)</span>
+                                </label>
+
+                                <label class="flex items-center space-x-3 text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+                                    <input type="checkbox" id="optYouth" class="w-4 h-4 rounded text-agri-green focus:ring-agri-green dark:bg-slate-800">
+                                    <span>Youth & Smallholder Cooperative Framework Advisory (+€600)</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="lg:col-span-5 bg-white dark:bg-slate-800/90 rounded-2xl p-6 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-6 shadow-inner">
+                            <div class="space-y-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Estimated Scope Total</span>
+                                <div class="text-3xl md:text-4xl font-serif font-extrabold text-agri-darkgreen dark:text-agri-amber" id="totalEstimateDisplay">
+                                    €3,850
+                                </div>
+                                <div class="space-y-1 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700 pt-3">
+                                    <p class="flex justify-between"><span>Base Freight:</span> <span id="summaryFreight" class="font-mono">€1,750</span></p>
+                                    <p class="flex justify-between"><span>Field Operator Rate:</span> <span id="summaryHours" class="font-mono">€1,800</span></p>
+                                    <p class="flex justify-between"><span>Regulatory Services:</span> <span id="summaryAddons" class="font-mono">€2,050</span></p>
+                                </div>
+                            </div>
+
+                            <button onclick="generateEstimateMail()" class="w-full py-3 rounded-xl bg-agri-green text-white dark:bg-agri-amber dark:text-slate-900 font-bold text-xs hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 shadow-lg">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Dispatch Inquiry Payload via Mail</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT & SOCIAL CONNECTIONS SECTION -->
+            <section id="contact" class="scroll-mt-10 pb-12">
+                <div class="glass rounded-3xl p-6 md:p-10 border border-slate-200/80 dark:border-slate-700/50 shadow-xl space-y-8">
+                    <div class="text-center max-w-xl mx-auto space-y-2">
+                        <h2 class="text-2xl md:text-3xl font-serif font-bold text-slate-900 dark:text-white">Contact & Professional Inquiries</h2>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300">
+                            Direct communication channels for international machinery trade, telemetry deployment, and advisory consultations.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <a href="mailto:alexandra.kun@example.com" class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-agri-green dark:hover:border-agri-amber transition-all flex items-center space-x-4 shadow-sm">
+                            <div class="p-3 rounded-xl bg-agri-lightgreen dark:bg-agri-darkgreen text-agri-green dark:text-agri-amber">
+                                <i class="fas fa-envelope text-base"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Direct Email</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">alexandra.kun@example.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-agri-green dark:hover:border-agri-amber transition-all flex items-center space-x-4 shadow-sm">
+                            <div class="p-3 rounded-xl bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400">
+                                <i class="fab fa-instagram text-base"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Instagram</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">@alexandra_agri</span>
+                            </div>
+                        </a>
+
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-agri-green dark:hover:border-agri-amber transition-all flex items-center space-x-4 shadow-sm">
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100">
+                                <i class="fab fa-tiktok text-base"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">TikTok</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">@alexandra_tractors</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4 max-w-2xl mx-auto pt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Your Name</label>
+                                <input type="text" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-agri-green focus:outline-none dark:text-white">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Your Email</label>
+                                <input type="email" required placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-agri-green focus:outline-none dark:text-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Inquiry Subject</label>
+                            <input type="text" required placeholder="AgTech Machinery Export Consultation" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-agri-green focus:outline-none dark:text-white">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Message Content</label>
+                            <textarea rows="4" required placeholder="Specify your inquiry details..." class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-agri-green focus:outline-none dark:text-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-agri-green text-white dark:bg-agri-amber dark:text-slate-900 font-bold text-xs hover:opacity-90 transition-opacity">
+                            Submit Professional Message
+                        </button>
+                        <div id="contactFormStatus" class="hidden text-center text-xs text-agri-green dark:text-emerald-400 font-semibold pt-2">
+                            Message successfully transmitted.
+                        </div>
+                    </form>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FULLSCREEN PHOTO LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-4 bg-slate-950/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full flex justify-between items-center text-white p-2">
+            <span id="lightboxCounter" class="text-xs font-mono text-agri-amber">1 / 6</span>
+            <button onclick="closeLightbox()" class="text-2xl text-slate-400 hover:text-white transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="relative flex-1 w-full max-w-4xl flex items-center justify-center p-2">
+            <button onclick="prevLightboxImage()" class="absolute left-2 z-10 p-3 rounded-full bg-slate-900/80 text-white hover:bg-agri-green transition-colors">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <img id="lightboxImage" src="" alt="Fullscreen Inspection" class="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-2xl border border-slate-800">
+            
+            <button onclick="nextLightboxImage()" class="absolute right-2 z-10 p-3 rounded-full bg-slate-900/80 text-white hover:bg-agri-green transition-colors">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="w-full max-w-2xl text-center p-3 bg-slate-900/80 rounded-2xl border border-slate-800 text-white space-y-1">
+            <h3 id="lightboxTitle" class="font-serif font-bold text-sm text-agri-amber">Photo Title</h3>
+            <p id="lightboxCaption" class="text-xs text-slate-300">Caption Details</p>
+        </div>
+    </div>
+
+    <!-- PROJECT BLUEPRINT MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl max-w-2xl w-full p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 dark:hover:text-white text-lg">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="space-y-2">
+                <span id="modalBadge" class="px-2.5 py-1 rounded-md bg-agri-lightgreen text-agri-green text-[10px] font-bold uppercase tracking-wider">Badge</span>
+                <h3 id="modalTitle" class="text-xl font-serif font-bold text-slate-900 dark:text-white">Project Title</h3>
+            </div>
+            <p id="modalDescription" class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+            <div class="bg-slate-50 dark:bg-slate-800/80 rounded-2xl p-4 border border-slate-200/60 dark:border-slate-700 space-y-3">
+                <h4 class="font-bold text-xs uppercase text-slate-400 tracking-wider">Metrics & Operational Execution</h4>
+                <ul id="modalMetrics" class="space-y-2 text-xs text-slate-700 dark:text-slate-200 list-disc list-inside"></ul>
+            </div>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeProjectModal()" class="px-5 py-2.5 rounded-xl bg-agri-green text-white text-xs font-bold hover:bg-agri-darkgreen transition-colors">
+                    Close Blueprint
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Execution Scripts -->
+    <script>
+        // --- Multilingual Text Translations ---
+        const languageData = {
+            en: `<p>I serve as the <strong>Import and Export Manager at John Deere</strong>, pairing <strong>1.5 years of international supply chain oversight</strong> with <strong>3 years of hands-on experience as a professional heavy machinery tractor driver</strong>.</p>
+                <p>My core mission is to modernize the agricultural sector, making AgTech and global logistics accessible to smallholder farmers and inspiring the next generation of agriculturalists through youth initiatives.</p>
+                <p>Equipped with a degree from the <strong>University of Global Supply Chain</strong>, high school foundations, trilingual fluency in <strong>Italian, English, and Spanish</strong>, and the mental discipline developed as a competitive <strong>bodybuilder</strong>, I apply rigorous focus to complex trade environments and demanding field operations.</p>`,
+            
+            it: `<p>Opero come <strong>Responsabile Import ed Export presso John Deere</strong>, unendo <strong>1,5 anni di gestione della catena di approvvigionamento globale</strong> a <strong>3 anni di esperienza operativa sul campo come conducente di trattori e macchinari pesanti</strong>.</p>
+                <p>La mia missione principale è modernizzare il settore agricolo, rendendo l'AgTech e la logistica internazionale accessibili ai piccoli agricoltori e ispirando la nuova generazione di agricoltori attraverso iniziative giovanili.</p>
+                <p>Con una laurea conseguita presso l'<strong>Università di Global Supply Chain</strong>, la conoscenza fluente di <strong>italiano, inglese e spagnolo</strong>, e la disciplina sviluppata nel <strong>bodybuilding agonistico</strong>, applico un rigore costante sia nelle operazioni doganali che sul campo.</p>`,
+
+            es: `<p>Me desempeño como <strong>Gerente de Importación y Exportación en John Deere</strong>, combinando <strong>1.5 años de supervisión de la cadena de suministro internacional</strong> con <strong>3 años de experiencia directa como conductora de tractores y maquinaria pesada</strong>.</p>
+                <p>Mi misión principal es modernizar el sector agrícola, haciendo que la tecnología AgTech y la logística global sean accesibles para los pequeños agricultores e inspirando a la próxima generación de agricultores.</p>
+                <p>Con un título de la <strong>Universidad de Global Supply Chain</strong>, dominio fluido de <strong>italiano, inglés y español</strong>, y la disciplina mental desarrollada como <strong>fisicoculturista competitiva</strong>, aplico un enfoque riguroso a entornos comerciales complejos y operaciones de campo exigentes.</p>`
+        };
+
+        function setLanguage(lang) {
+            const container = document.getElementById('bioTextContainer');
+            if (languageData[lang]) {
+                container.innerHTML = languageData[lang];
+            }
+
+            ['en', 'it', 'es'].forEach(l => {
+                const btn = document.getElementById(`lang-btn-${l}`);
+                if (l === lang) {
+                    btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200');
+                    btn.classList.add('bg-agri-green', 'text-white');
+                } else {
+                    btn.classList.remove('bg-agri-green', 'text-white');
+                    btn.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200');
+                }
+            });
+        }
+        setLanguage('en');
+
+        // --- Theme Toggling ---
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const themeToggleDesktop = document.getElementById('themeToggleDesktop');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        themeToggleMobile.addEventListener('click', toggleTheme);
+        themeToggleDesktop.addEventListener('click', toggleTheme);
+
+        // --- Sidebar Navigation Menu Controls ---
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        // --- Photo Lightbox Gallery Data & Logic ---
+        const lightboxItems = [
+            {
+                src: "https://images.unsplash.com/photo-1530267981608-bc70a3707c07?auto=format&fit=crop&w=1600&q=80",
+                title: "Field Harvest Tillage Operation",
+                caption: "Operating high-horsepower John Deere machinery across deep tillage acreage, tracking engine torque loads."
+            },
+            {
+                src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80",
+                title: "Intermodal Container Terminal Hub",
+                caption: "Supervising containerized exports and customs regulatory clearances at international maritime shipping docks."
+            },
+            {
+                src: "https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=1600&q=80",
+                title: "GPS Telemetry Cockpit Integration",
+                caption: "Calibrating automated steering guidance displays inside modern high-horsepower tractor cabs."
+            },
+            {
+                src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80",
+                title: "Athletic Bodybuilding Discipline",
+                caption: "Conditioning physical strength and mental endurance applied to demanding field hours."
+            },
+            {
+                src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80",
+                title: "Modern AgTech Field Survey",
+                caption: "Soil analysis and GPS grid plotting to maximize crop yields for local smallholder agriculturalists."
+            },
+            {
+                src: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80",
+                title: "Heavy Machinery Export Logistics",
+                caption: "Securing heavy equipment onto flatbed freight transports for intermodal cross-border transit."
+            }
+        ];
+
+        let currentLightboxIndex = 0;
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            updateLightboxContent();
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+
+        function updateLightboxContent() {
+            const item = lightboxItems[currentLightboxIndex];
+            document.getElementById('lightboxImage').src = item.src;
+            document.getElementById('lightboxTitle').innerText = item.title;
+            document.getElementById('lightboxCaption').innerText = item.caption;
+            document.getElementById('lightboxCounter').innerText = `${currentLightboxIndex + 1} / ${lightboxItems.length}`;
+        }
+
+        function prevLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
+            updateLightboxContent();
+        }
+
+        function nextLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % lightboxItems.length;
+            updateLightboxContent();
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // --- Interactive CV Timeline Details Drawer ---
+        function toggleCvDetails(id) {
+            const details = document.getElementById(`${id}-details`);
+            const icon = document.getElementById(`${id}-icon`);
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            } else {
+                details.classList.add('hidden');
+                icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            }
+        }
+
+        // --- Particle Mesh Canvas Animation ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = 1.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(217, 119, 6, 0.25)' : 'rgba(45, 90, 39, 0.2)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 25), 35);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = document.documentElement.classList.contains('dark') 
+                            ? `rgba(217, 119, 6, ${0.12 - dist / 900})` 
+                            : `rgba(45, 90, 39, ${0.1 - dist / 900})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Skill Matrix Filter ---
+        function filterCapabilities(type) {
+            const cards = document.querySelectorAll('.skill-card');
+            const btns = document.querySelectorAll('.cap-filter-btn');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-agri-green', 'text-white');
+                btn.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+            });
+
+            const activeBtn = document.getElementById(`cap-btn-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                activeBtn.classList.add('bg-agri-green', 'text-white');
+            }
+
+            cards.forEach(card => {
+                if (type === 'all' || card.classList.contains(type)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Project Modal Data & Filters ---
+        const projectData = {
+            p1: {
+                title: "Smart Telemetry Fleet Deployment",
+                badge: "AgTech & Machinery Operations",
+                description: "Overhauled fleet telematics across John Deere high-horsepower tractor lineups. Embedded live automated guidance systems to track soil compaction, fuel efficiency, and real-time field coverage telemetry.",
+                metrics: [
+                    "Achieved 18% reduction in diesel fuel expenditure across 15+ machine units.",
+                    "Implemented sub-centimeter GPS guidance alignment for planting accuracy.",
+                    "Streamlined maintenance downtime alerts directly to mobile logistics dashboards."
+                ]
+            },
+            p2: {
+                title: "EU-South America Machinery Export Route",
+                badge: "Global Logistics & Trade",
+                description: "Architected a multi-stage maritime and overland freight supply chain for specialized machinery exports. Managed phytosanitary documentation, international customs clearances, and heavy-load transit compliance.",
+                metrics: [
+                    "Zero tariff delays or phytosanitary holds over 1.5 years of active management.",
+                    "Reduced intermodal transit bottleneck times by 14 days per shipment cycle.",
+                    "Negotiated trilingual freight contracts across Italian, English, and Spanish agencies."
+                ]
+            },
+            p3: {
+                title: "Youth Ag-Cooperative Equipment Sharing",
+                badge: "Youth & Smallholder Initiatives",
+                description: "Pioneered a communal AgTech equipment platform enabling young agriculturalists and smallholder farmers to access modern high-efficiency John Deere equipment without prohibitive individual capital expenditures.",
+                metrics: [
+                    "Empowered 40+ small farms to utilize advanced modern harvesting equipment.",
+                    "Organized hands-on tractor operation workshops specifically engaging youth entering agriculture.",
+                    "Published open equipment sharing framework adopted by regional agricultural hubs."
+                ]
+            }
+        };
+
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-card');
+            const tabs = document.querySelectorAll('.proj-tab');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-agri-green', 'text-white');
+                tab.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+            });
+
+            event.target.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+            event.target.classList.add('bg-agri-green', 'text-white');
+
+            projects.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openProjectModal(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalBadge').innerText = data.badge;
+            document.getElementById('modalDescription').innerText = data.description;
+
+            const metricsList = document.getElementById('modalMetrics');
+            metricsList.innerHTML = '';
+            data.metrics.forEach(m => {
+                const li = document.createElement('li');
+                li.innerText = m;
+                metricsList.appendChild(li);
+            });
+
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // --- Agri-Logistics Estimator Calculator ---
+        const tonnageSlider = document.getElementById('tonnageSlider');
+        const hoursSlider = document.getElementById('hoursSlider');
+        const optCustoms = document.getElementById('optCustoms');
+        const optTelemetry = document.getElementById('optTelemetry');
+        const optYouth = document.getElementById('optYouth');
+
+        function updateEstimate() {
+            const tons = parseInt(tonnageSlider.value);
+            const hours = parseInt(hoursSlider.value);
+
+            document.getElementById('tonnageValue').innerText = `${tons} Tons`;
+            document.getElementById('hoursValue').innerText = `${hours} Hours`;
+
+            const baseFreightCost = tons * 70;
+            const hoursCost = hours * 45;
+            
+            let addonsCost = 0;
+            if (optCustoms.checked) addonsCost += 1200;
+            if (optTelemetry.checked) addonsCost += 850;
+            if (optYouth.checked) addonsCost += 600;
+
+            const total = baseFreightCost + hoursCost + addonsCost;
+
+            document.getElementById('summaryFreight').innerText = `€${baseFreightCost.toLocaleString()}`;
+            document.getElementById('summaryHours').innerText = `€${hoursCost.toLocaleString()}`;
+            document.getElementById('summaryAddons').innerText = `€${addonsCost.toLocaleString()}`;
+            document.getElementById('totalEstimateDisplay').innerText = `€${total.toLocaleString()}`;
+        }
+
+        [tonnageSlider, hoursSlider, optCustoms, optTelemetry, optYouth].forEach(el => {
+            el.addEventListener('input', updateEstimate);
+            el.addEventListener('change', updateEstimate);
+        });
+        updateEstimate();
+
+        function generateEstimateMail() {
+            const total = document.getElementById('totalEstimateDisplay').innerText;
+            const tons = tonnageSlider.value;
+            const hours = hoursSlider.value;
+            const body = `Alexandra Kun Inquiry:%0D%0A- Volume: ${tons} Tons%0D%0A- Operator Field Hours: ${hours} Hours%0D%0A- Estimated Scope: ${total}%0D%0A`;
+            window.location.href = `mailto:alexandra.kun@example.com?subject=Logistics Scope (${total})&body=${body}`;
+        }
+
+        // --- Import and Export Shipment Quiz ---
+        const tradeQuizQuestions = [
+            {
+                stage: 'Plan',
+                question: 'A machinery order is confirmed. What should the team check before booking transport?',
+                choices: [
+                    'Destination requirements, product classification, and agreed shipment responsibilities',
+                    'Only the fastest available route',
+                    'The package color and warehouse location'
+                ],
+                answer: 0,
+                explanation: 'Correct planning starts with the goods and destination rules. Classification, restrictions, and the agreed Incoterm help clarify requirements and responsibilities.'
+            },
+            {
+                stage: 'Documents',
+                question: 'Which document pair commonly describes the sale and the physical contents of a shipment?',
+                choices: [
+                    'A marketing brochure and a price list',
+                    'A commercial invoice and a packing list',
+                    'A driver log and a maintenance schedule'
+                ],
+                answer: 1,
+                explanation: 'The commercial invoice describes the transaction and goods; the packing list details how the goods are packed. Other certificates or permits may also be required.'
+            },
+            {
+                stage: 'Customs',
+                question: 'What makes customs information useful and reliable?',
+                choices: [
+                    'Use a broad description to save time',
+                    'Copy values from an older unrelated shipment',
+                    'Provide accurate goods description, classification, origin, and value'
+                ],
+                answer: 2,
+                explanation: 'Customs declarations depend on accurate shipment details. Classification, origin, and value can affect admissibility, duties, and reporting.'
+            },
+            {
+                stage: 'Delivery',
+                question: 'The goods arrive at the destination border. What needs to happen before final delivery?',
+                choices: [
+                    'Import clearance is completed and applicable charges are handled',
+                    'The shipment is automatically released as soon as it arrives',
+                    'The export paperwork is deleted'
+                ],
+                answer: 0,
+                explanation: 'The importer or appointed representative typically completes destination import formalities and applicable charges before goods are released for delivery.'
+            }
+        ];
+        let tradeQuizIndex = 0;
+        let tradeQuizScore = 0;
+        let tradeQuizAnswered = false;
+
+        function renderTradeQuiz() {
+            const question = tradeQuizQuestions[tradeQuizIndex];
+            const progress = document.querySelector('#tradeQuiz [role="progressbar"]');
+            const progressBar = document.getElementById('tradeQuizProgressBar');
+            document.getElementById('tradeQuizScore').textContent = `Score ${tradeQuizScore}`;
+
+            if (!question) {
+                document.getElementById('tradeQuizProgress').textContent = 'Challenge complete';
+                document.getElementById('tradeQuizStage').textContent = 'Shipment desk / complete';
+                document.getElementById('tradeQuizQuestion').textContent = 'Shipment cleared';
+                document.getElementById('tradeQuizChoices').innerHTML = '';
+                document.getElementById('tradeQuizFeedback').textContent = tradeQuizScore === tradeQuizQuestions.length
+                    ? 'Excellent dispatch. You followed the key steps from planning to destination clearance.'
+                    : `You scored ${tradeQuizScore} out of ${tradeQuizQuestions.length}. Replay the challenge to review the shipment workflow.`;
+                document.getElementById('tradeQuizNext').classList.add('hidden');
+                document.getElementById('tradeQuizRestart').classList.remove('hidden');
+                progress.style.width = '100%';
+                progress.setAttribute('aria-valuenow', String(tradeQuizQuestions.length));
+                return;
+            }
+
+            document.getElementById('tradeQuizProgress').textContent = `Question ${tradeQuizIndex + 1} of ${tradeQuizQuestions.length}`;
+            document.getElementById('tradeQuizStage').textContent = `Step ${tradeQuizIndex + 1} / ${question.stage}`;
+            document.getElementById('tradeQuizQuestion').textContent = question.question;
+            document.getElementById('tradeQuizFeedback').textContent = '';
+            document.getElementById('tradeQuizChoices').innerHTML = question.choices.map((choice, index) => `<button type="button" onclick="answerTradeQuiz(${index})" class="trade-quiz-choice min-h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 text-left text-xs leading-relaxed text-slate-700 dark:text-slate-200 hover:border-agri-green dark:hover:border-agri-amber hover:bg-agri-lightgreen/60 dark:hover:bg-slate-700 transition-colors">${choice}</button>`).join('');
+            document.getElementById('tradeQuizNext').classList.add('hidden');
+            document.getElementById('tradeQuizRestart').classList.add('hidden');
+            progress.style.width = `${(tradeQuizIndex / tradeQuizQuestions.length) * 100}%`;
+            progress.setAttribute('aria-valuenow', String(tradeQuizIndex));
+            tradeQuizAnswered = false;
+        }
+
+        function answerTradeQuiz(answerIndex) {
+            if (tradeQuizAnswered) return;
+            const question = tradeQuizQuestions[tradeQuizIndex];
+            if (!question) return;
+            tradeQuizAnswered = true;
+            const correct = answerIndex === question.answer;
+            if (correct) tradeQuizScore += 1;
+
+            document.querySelectorAll('#tradeQuizChoices button').forEach((button, index) => {
+                button.disabled = true;
+                if (index === question.answer) button.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+                else if (index === answerIndex) button.classList.add('border-rose-500', 'bg-rose-50', 'dark:bg-rose-900/30');
+            });
+            document.getElementById('tradeQuizFeedback').textContent = `${correct ? 'Correct. ' : 'Not quite. '}${question.explanation}`;
+            document.getElementById('tradeQuizScore').textContent = `Score ${tradeQuizScore}`;
+            document.getElementById('tradeQuizNext').innerHTML = tradeQuizIndex === tradeQuizQuestions.length - 1
+                ? 'See results <i class="fas fa-arrow-right ml-2"></i>'
+                : 'Next step <i class="fas fa-arrow-right ml-2"></i>';
+            document.getElementById('tradeQuizNext').classList.remove('hidden');
+            const progress = document.querySelector('#tradeQuiz [role="progressbar"]');
+            progress.setAttribute('aria-valuenow', String(tradeQuizIndex + 1));
+            document.getElementById('tradeQuizProgressBar').style.width = `${((tradeQuizIndex + 1) / tradeQuizQuestions.length) * 100}%`;
+        }
+
+        function advanceTradeQuiz() {
+            if (!tradeQuizAnswered) return;
+            tradeQuizIndex += 1;
+            renderTradeQuiz();
+        }
+
+        function resetTradeQuiz() {
+            tradeQuizIndex = 0;
+            tradeQuizScore = 0;
+            tradeQuizAnswered = false;
+            renderTradeQuiz();
+        }
+
+        renderTradeQuiz();
+
+        // --- Activity Check-In ---
+        const activityChoices = {};
+
+        function setActivityChoice(group, value, button) {
+            activityChoices[group] = value;
+            document.querySelectorAll(`[data-checkin-group="${group}"]`).forEach(option => {
+                const selected = option === button;
+                option.setAttribute('aria-pressed', String(selected));
+                option.classList.toggle('bg-agri-green', selected);
+                option.classList.toggle('text-white', selected);
+                option.classList.toggle('border-agri-green', selected);
+                option.classList.toggle('dark:bg-agri-green', selected);
+                option.classList.toggle('dark:border-agri-amber', selected);
+                option.classList.toggle('text-slate-700', !selected);
+                option.classList.toggle('dark:text-slate-200', !selected);
+            });
+            document.getElementById('activityCheckinStatus').textContent = 'Choices stay on this page unless you choose to email them.';
+        }
+
+        function buildActivitySnapshot() {
+            const status = document.getElementById('activityCheckinStatus');
+            if (!activityChoices.days || !activityChoices.movement || !activityChoices.energy) {
+                status.textContent = 'Choose one option in each group to build your snapshot.';
+                return;
+            }
+
+            const activityScore = { '0-1': 0, '2-3': 1, '4-5': 2, '6-7': 2 }[activityChoices.days]
+                + { 'Under 20 min': 0, '20-44 min': 1, '45+ min': 2 }[activityChoices.movement];
+            let title;
+            let guidance;
+
+            if (activityScore <= 1) {
+                title = 'A routine taking shape';
+                guidance = 'A small, repeatable step can be a good place to start, such as a short walk or gentle movement on a day that suits you.';
+            } else if (activityScore <= 3) {
+                title = 'Building a steady rhythm';
+                guidance = 'You have some movement in your week. Keeping it enjoyable and consistent can help make the routine last.';
+            } else {
+                title = 'A regular mover';
+                guidance = 'You report frequent movement. Keep a balance that feels sustainable, with variety and time to recover.';
+            }
+
+            if (activityChoices.energy === 'Low') {
+                guidance += ' You noted low energy, so keep goals gentle and pay attention to rest; consider asking a health professional if you have concerns.';
+            } else if (activityChoices.energy === 'Varies') {
+                guidance += ' Since your energy varies, adapting the effort to how you feel day to day may suit you.';
+            } else {
+                guidance += ' You report good typical energy; continue to check in with how your body feels.';
+            }
+
+            document.getElementById('activitySnapshotTitle').textContent = title;
+            document.getElementById('activitySnapshotCopy').textContent = guidance;
+            document.getElementById('activitySnapshot').classList.remove('hidden');
+            status.textContent = 'Snapshot ready. Your answers have not been sent.';
+
+            const emailBody = [
+                'Hi Alexandra,',
+                '',
+                'I tried the Move & Recover check-in and would like to discuss my activity goals.',
+                `Active days per week: ${activityChoices.days}`,
+                `Everyday movement: ${activityChoices.movement}`,
+                `Typical energy: ${activityChoices.energy}`,
+                `Movement profile: ${title}`
+            ].join('\n');
+            const subject = encodeURIComponent('Activity goals check-in');
+            document.getElementById('activityContactLink').href = `mailto:alexandra.kun@example.com?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
+        }
+
+        // --- Field Work and Weather Simulations ---
+        const fieldWorkTasks = [
+            { label: 'Inspect tractor', detail: 'Safety walk-around complete. GPS guidance and implement are ready.', hours: 0.5, fuel: 2 },
+            { label: 'Cultivate soil', detail: 'Soil is cultivated in parallel passes. Good seedbed conditions matter.', hours: 2, fuel: 24 },
+            { label: 'Plant wheat', detail: 'Seed is placed at a steady depth with GPS-guided row spacing.', hours: 1.5, fuel: 18 },
+            { label: 'Check and protect crop', detail: 'Crop check complete. Moisture and plant health look suitable for harvest.', hours: 1, fuel: 8 },
+            { label: 'Harvest field', detail: 'Harvest complete. The crop is collected and the field is cleared.', hours: 3, fuel: 32 }
+        ];
+        let fieldWorkStep = 0;
+        let fieldWorkHours = 0;
+        let fieldWorkFuel = 100;
+
+        function setFieldGameMode(mode) {
+            const workMode = mode === 'work';
+            document.getElementById('field-work-panel').classList.toggle('hidden', !workMode);
+            document.getElementById('field-weather-panel').classList.toggle('hidden', workMode);
+            document.getElementById('field-mode-work').setAttribute('aria-selected', String(workMode));
+            document.getElementById('field-mode-weather').setAttribute('aria-selected', String(!workMode));
+            document.getElementById('field-mode-work').className = `flex-1 px-4 py-4 text-xs md:text-sm font-bold border-b-2 ${workMode ? 'text-agri-green dark:text-agri-lightgreen border-agri-green dark:border-agri-amber' : 'text-slate-500 dark:text-slate-400 border-transparent'}`;
+            document.getElementById('field-mode-weather').className = `flex-1 px-4 py-4 text-xs md:text-sm font-bold border-b-2 ${!workMode ? 'text-agri-green dark:text-agri-lightgreen border-agri-green dark:border-agri-amber' : 'text-slate-500 dark:text-slate-400 border-transparent'}`;
+        }
+
+        function renderFieldWork() {
+            const plot = document.getElementById('fieldWorkPlot');
+            const stage = fieldWorkStep >= 5 ? 'harvested' : fieldWorkStep >= 4 ? 'growing' : fieldWorkStep >= 3 ? 'seeded' : fieldWorkStep >= 2 ? 'prepared' : 'unworked';
+            const icon = stage === 'harvested' ? 'fa-wheat-awn' : stage === 'growing' ? 'fa-wheat-awn' : stage === 'seeded' ? 'fa-seedling' : stage === 'prepared' ? 'fa-grip-lines' : 'fa-minus';
+            plot.innerHTML = Array.from({ length: 40 }, (_, index) => `<span class="field-plot-cell ${stage}" aria-hidden="true"><i class="fas ${icon}"></i></span>`).join('');
+            document.getElementById('fieldPlotStage').textContent = stage === 'unworked' ? 'Unworked soil' : stage === 'prepared' ? 'Soil cultivated' : stage === 'seeded' ? 'Wheat planted' : stage === 'growing' ? 'Crop checked' : 'Harvest complete';
+            document.getElementById('fieldWorkHours').textContent = `${fieldWorkHours} h`;
+            document.getElementById('fieldWorkFuel').textContent = `${fieldWorkFuel}%`;
+            document.getElementById('fieldWorkYield').textContent = fieldWorkStep >= 5 ? '8.4 t' : '--';
+            document.getElementById('fieldWorkChecklist').innerHTML = fieldWorkTasks.map((task, index) => `<li class="flex items-center gap-2"><i class="fas ${index < fieldWorkStep ? 'fa-circle-check text-emerald-600' : index === fieldWorkStep ? 'fa-circle-dot text-agri-amber' : 'fa-circle text-slate-300 dark:text-slate-600'}"></i><span class="${index < fieldWorkStep ? 'line-through opacity-60' : ''}">${task.label}</span><span class="ml-auto text-[10px] text-slate-400">${task.hours} h</span></li>`).join('');
+            const action = document.getElementById('fieldWorkAction');
+            action.disabled = fieldWorkStep >= fieldWorkTasks.length;
+            action.innerHTML = fieldWorkStep >= fieldWorkTasks.length ? '<i class="fas fa-check mr-2"></i>Shift complete' : `<i class="fas ${fieldWorkStep === 0 ? 'fa-clipboard-check' : fieldWorkStep === 4 ? 'fa-wheat-awn' : 'fa-tractor'} mr-2"></i>${fieldWorkTasks[fieldWorkStep].label}`;
+            action.classList.toggle('opacity-60', action.disabled);
+        }
+
+        function advanceFieldWork() {
+            if (fieldWorkStep >= fieldWorkTasks.length) return;
+            const task = fieldWorkTasks[fieldWorkStep];
+            fieldWorkHours += task.hours;
+            fieldWorkFuel = Math.max(0, fieldWorkFuel - task.fuel);
+            fieldWorkStep += 1;
+            document.getElementById('fieldWorkStatus').textContent = fieldWorkStep === fieldWorkTasks.length ? `${task.detail} Shift complete in ${fieldWorkHours} hours.` : task.detail;
+            renderFieldWork();
+        }
+
+        function resetFieldWork() {
+            fieldWorkStep = 0;
+            fieldWorkHours = 0;
+            fieldWorkFuel = 100;
+            document.getElementById('fieldWorkStatus').textContent = 'Check the tractor before heading into the field.';
+            renderFieldWork();
+        }
+
+        const weatherEffects = {
+            sun: { label: 'Clear sun', note: 'Sunshine supports growth, while the soil gradually dries.', moisture: -12, health: 0, growth: 11, icon: 'fa-sun', color: 'text-amber-500' },
+            rain: { label: 'Steady rain', note: 'Rain replenishes soil moisture. Prolonged saturation can slow growth.', moisture: 24, health: 0, growth: 8, icon: 'fa-cloud-rain', color: 'text-sky-500' },
+            heat: { label: 'Heatwave', note: 'High heat dries the soil quickly and stresses the crop.', moisture: -28, health: -12, growth: 2, icon: 'fa-temperature-high', color: 'text-orange-500' },
+            frost: { label: 'Late frost', note: 'Frost can damage young plants and set back crop growth.', moisture: -6, health: -22, growth: -6, icon: 'fa-snowflake', color: 'text-sky-400' }
+        };
+        let fieldWeather = { day: 1, moisture: 56, health: 100, growth: 12, selected: 'sun' };
+
+        function selectFieldWeather(weather) {
+            fieldWeather.selected = weather;
+            document.querySelectorAll('.weather-choice').forEach(button => {
+                const active = button.dataset.weather === weather;
+                button.setAttribute('aria-pressed', String(active));
+                button.classList.toggle('border-agri-green', active);
+                button.classList.toggle('dark:border-agri-amber', active);
+                button.classList.toggle('border-transparent', !active);
+                button.classList.toggle('bg-agri-lightgreen', active);
+                button.classList.toggle('dark:bg-agri-darkgreen/60', active);
+                button.classList.toggle('bg-slate-100', !active);
+                button.classList.toggle('dark:bg-slate-700', !active);
+            });
+            document.getElementById('weatherForecastNote').textContent = weatherEffects[weather].note;
+        }
+
+        function advanceFieldWeather() {
+            const effect = weatherEffects[fieldWeather.selected];
+            fieldWeather.day += 1;
+            fieldWeather.moisture = Math.max(0, Math.min(100, fieldWeather.moisture + effect.moisture));
+            fieldWeather.health = Math.max(0, Math.min(100, fieldWeather.health + effect.health + (fieldWeather.moisture < 20 ? -5 : 0)));
+            fieldWeather.growth = Math.max(0, Math.min(100, fieldWeather.growth + effect.growth + (fieldWeather.moisture < 20 ? -5 : 0) + (fieldWeather.moisture > 85 && fieldWeather.selected === 'rain' ? -4 : 0)));
+            document.getElementById('weatherStatus').textContent = `Day ${fieldWeather.day}: ${effect.label.toLowerCase()} changed the crop conditions.`;
+            renderFieldWeather();
+        }
+
+        function resetFieldWeather() {
+            fieldWeather = { day: 1, moisture: 56, health: 100, growth: 12, selected: 'sun' };
+            selectFieldWeather('sun');
+            document.getElementById('weatherStatus').textContent = 'Choose the forecast, then advance one day to see the crop respond.';
+            renderFieldWeather();
+        }
+
+        function renderFieldWeather() {
+            document.getElementById('weatherDay').textContent = fieldWeather.day;
+            ['Moisture', 'Health', 'Growth'].forEach((metric, index) => {
+                const value = fieldWeather[['moisture', 'health', 'growth'][index]];
+                document.getElementById(`weather${metric}Value`).textContent = `${value}%`;
+                document.getElementById(`weather${metric}Bar`).style.width = `${value}%`;
+            });
+            const healthClass = fieldWeather.health < 35 ? 'text-amber-700' : 'text-emerald-700';
+            const crop = document.getElementById('weatherCropPlot');
+            crop.innerHTML = Array.from({ length: 7 }, (_, index) => {
+                const size = 22 + Math.round(fieldWeather.growth * 0.65) + ((index % 3) * 3);
+                const icon = fieldWeather.health < 20 ? 'fa-leaf' : fieldWeather.growth > 70 ? 'fa-wheat-awn' : 'fa-seedling';
+                return `<div class="flex flex-col items-center justify-end h-24"><i class="fas ${icon} ${healthClass} drop-shadow-sm transition-all" style="font-size:${size}px;opacity:${Math.max(0.35, fieldWeather.health / 100)}"></i><span class="mt-2 h-2 w-8 rounded-full bg-amber-900/20"></span></div>`;
+            }).join('');
+        }
+
+        renderFieldWork();
+        renderFieldWeather();
+
+        // --- Contact Form Submission ---
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const status = document.getElementById('contactFormStatus');
+            status.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => { status.classList.add('hidden'); }, 5000);
+        }
+    </script>
+</body>
+</html>
